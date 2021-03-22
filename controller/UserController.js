@@ -28,29 +28,19 @@ const postUser = async (req, res) => {
 }
 
 //Put Method
-const updateUser = async(req,res) =>{
-    user.save((error, result) => {
-        if (error) {
-            res.json({status:false});
-        } else {
-            res.json({status:true});
-        }
-    });
+
+const updateUser = async (req, res) => {
+
+    const user = await User.findOneAndUpdate({_id:req.body._id}, {$set:req.body},{new:true});
+    res.json({user:user});
 }
 
-module.exports = { getAllUsers,postUser,getUser,updateUser};
+//Delete Method
 
-/*app.delete('/book/:isbn', (req, res) => {
-    // Reading isbn from the URL
-    const isbn = req.params.isbn;
+const deleteUser = async (req, res) => {
+   const user = await User.findOneAndRemove({_id:req.body._id});
+    res.json({user:user});
+}
 
-    // Remove item from the books array
-    books = books.filter(i => {
-        if (i.isbn !== isbn) {
-            return true;
-        }
-        return false;
-    });
+module.exports = { getAllUsers,postUser,getUser,updateUser,deleteUser};
 
-    res.send('Book is deleted');
-});*/

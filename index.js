@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 
-const {getAllUsers ,postUser,getUser,updateUser} = require('./controller/UserController')
+const {getAllUsers ,postUser,getUser,updateUser,deleteUser} = require('./controller/UserController')
 
 //DB connection
 async function connectDB() {
@@ -25,14 +25,10 @@ var router = express.Router();
 router.get('/users', getAllUsers);
 router.post('/post', postUser);
 router.get('/user/:id',getUser);
-router.put('/user/:id',updateUser);
+router.put('/user',updateUser);
+router.delete('/user',deleteUser);
 app.use('/', router);
-app.listen(8000, ()=>{
-console.log('on 8086');
+app.listen(8004, ()=>{
+console.log('on 8002');
 });
 
-/*
-app.get('/user/:id', function(req, res) {
-    res.send('user' + req.params.id);    
-});
-*/
